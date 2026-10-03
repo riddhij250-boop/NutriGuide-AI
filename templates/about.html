@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – NutriGuide AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">NutriGuide <span class="logo-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/preferences" class="nav-link">Preferences</a></li>
+        <li><a href="/recommendations" class="nav-link">Recommendations</a></li>
+        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+        <li><a href="/about" class="nav-link active">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">ℹ️ About NutriGuide AI</h1>
+      <p class="page-subtitle">A BCA AI/ML college project for smart nutrition</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container">
+
+      <!-- Project Overview -->
+      <div class="about-hero">
+        <div class="about-emoji-big">🥗</div>
+        <div class="about-text">
+          <h2>What is NutriGuide AI?</h2>
+          <p>
+            NutriGuide AI is a <strong>Smart Food Recommendation System</strong> built as a
+            BCA AI/ML college project. It uses a rule-based recommendation algorithm to suggest
+            foods that match your dietary preferences, health goals, and available ingredients —
+            without requiring any paid API or internet connection.
+          </p>
+          <p>
+            The goal is to help people make better food choices by providing personalised
+            recommendations along with full nutritional information for each food item.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="section-header" style="margin-top:60px;">
+        <h2 class="section-title">🛠️ Technology Stack</h2>
+        <p class="section-subtitle">Simple, beginner-friendly technologies</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-icon">🐍</div>
+          <h3>Python 3</h3>
+          <p>Main programming language for the backend logic and recommendation algorithm.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">⚗️</div>
+          <h3>Flask</h3>
+          <p>Lightweight Python web framework to create the server and handle HTTP requests.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🗃️</div>
+          <h3>SQLite</h3>
+          <p>Simple file-based database to store all 35 food items. No server setup needed.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🌐</div>
+          <h3>HTML/CSS/JS</h3>
+          <p>Frontend technologies for a responsive, modern user interface with animations.</p>
+        </div>
+      </div>
+
+      <!-- How the AI works -->
+      <div class="section-header" style="margin-top:60px;">
+        <h2 class="section-title">🤖 How the Recommendation Works</h2>
+        <p class="section-subtitle">Simple, transparent, and understandable</p>
+      </div>
+
+      <div class="algo-card">
+        <p>
+          The recommendation engine scores each food out of <strong>100 points</strong> based on
+          how well it matches your preferences:
+        </p>
+        <div class="scoring-grid">
+          <div class="scoring-item">
+            <div class="scoring-points">30 pts</div>
+            <div class="scoring-criterion">Diet Type Match</div>
+            <div class="scoring-desc">Food matches your dietary preference (vegan, vegetarian, etc.)</div>
+          </div>
+          <div class="scoring-item">
+            <div class="scoring-points">25 pts</div>
+            <div class="scoring-criterion">Health Goal Match</div>
+            <div class="scoring-desc">Food is specifically good for your health goal</div>
+          </div>
+          <div class="scoring-item">
+            <div class="scoring-points">20 pts</div>
+            <div class="scoring-criterion">Meal Type Match</div>
+            <div class="scoring-desc">Food is suitable for the meal type you selected</div>
+          </div>
+          <div class="scoring-item">
+            <div class="scoring-points">15 pts</div>
+            <div class="scoring-criterion">Ingredients Match</div>
+            <div class="scoring-desc">Food uses ingredients you already have at home</div>
+          </div>
+          <div class="scoring-item">
+            <div class="scoring-points">10 pts</div>
+            <div class="scoring-criterion">Cuisine Match</div>
+            <div class="scoring-desc">Food belongs to your preferred cuisine</div>
+          </div>
+        </div>
+        <div class="algo-note">
+          <strong>Allergen Filter:</strong> Foods containing any of your allergens are
+          <em>completely removed</em> from results, regardless of their score.
+        </div>
+      </div>
+
+      <!-- Project Files -->
+      <div class="section-header" style="margin-top:60px;">
+        <h2 class="section-title">📁 Project Structure</h2>
+        <p class="section-subtitle">What each file does</p>
+      </div>
+
+      <div class="file-tree">
+        <div class="file-item main">
+          <span class="file-icon">📁</span>
+          <span class="file-name">nutriguide/</span>
+          <span class="file-desc">Main project folder</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">🐍</span>
+          <span class="file-name">app.py</span>
+          <span class="file-desc">Flask web server — handles all URL requests</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">🤖</span>
+          <span class="file-name">recommender.py</span>
+          <span class="file-desc">AI recommendation logic and scoring algorithm</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">🗃️</span>
+          <span class="file-name">database.py</span>
+          <span class="file-desc">Creates the SQLite database and inserts 35 foods</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">📁</span>
+          <span class="file-name">templates/</span>
+          <span class="file-desc">HTML pages (index, preferences, recommendations, etc.)</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">📁</span>
+          <span class="file-name">static/css/</span>
+          <span class="file-desc">All CSS styles for the beautiful UI</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">📁</span>
+          <span class="file-name">static/js/</span>
+          <span class="file-desc">JavaScript files that make the pages interactive</span>
+        </div>
+        <div class="file-item child">
+          <span class="file-icon">📁</span>
+          <span class="file-name">data/nutriguide.db</span>
+          <span class="file-desc">SQLite database file with all food data</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-card" style="margin-top:60px;">
+        <h2>Ready to Try It?</h2>
+        <p>Fill in your preferences and get your personalised food recommendations in seconds.</p>
+        <a href="/preferences" class="btn btn-white btn-lg">🚀 Get Started</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 NutriGuide AI – BCA AI/ML Project. Built with ❤️ using Flask & Python.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
