@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – NutriGuide AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">NutriGuide <span class="logo-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/preferences" class="nav-link">Preferences</a></li>
+        <li><a href="/recommendations" class="nav-link">Recommendations</a></li>
+        <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">📊 Dashboard</h1>
+      <p class="page-subtitle">Explore food database statistics and nutritional insights</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container">
+
+      <!-- Stat Summary Cards -->
+      <div class="dashboard-stats" id="dashStats">
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">🍽️</div>
+          <div class="dash-stat-value" id="statTotal">--</div>
+          <div class="dash-stat-label">Total Foods</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">🔥</div>
+          <div class="dash-stat-value" id="statCalories">--</div>
+          <div class="dash-stat-label">Avg Calories</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">💪</div>
+          <div class="dash-stat-value" id="statProtein">--</div>
+          <div class="dash-stat-label">Avg Protein (g)</div>
+        </div>
+        <div class="dash-stat-card">
+          <div class="dash-stat-icon">🌿</div>
+          <div class="dash-stat-value" id="statVegan">--</div>
+          <div class="dash-stat-label">Vegan Foods</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-row">
+
+        <!-- Diet Breakdown Chart -->
+        <div class="chart-card">
+          <h3 class="chart-title">🥗 Diet Type Breakdown</h3>
+          <div class="pie-chart-wrap">
+            <canvas id="dietChart" width="260" height="260"></canvas>
+            <div class="pie-legend" id="dietLegend"></div>
+          </div>
+        </div>
+
+        <!-- Cuisine Chart -->
+        <div class="chart-card">
+          <h3 class="chart-title">🌍 Foods by Cuisine</h3>
+          <div class="bar-chart-wrap" id="cuisineChartWrap">
+            <!-- SVG bar chart rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Macros comparison -->
+      <div class="chart-card full-width">
+        <h3 class="chart-title">🔬 Average Macronutrients per Food</h3>
+        <div class="macro-chart-wrap" id="macroChartWrap">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Browse All Foods -->
+      <div class="browse-section">
+        <h3 class="chart-title" style="margin-bottom:20px;">📋 Browse All Foods</h3>
+
+        <!-- Filter row -->
+        <div class="browse-filters">
+          <select id="browseDiet" class="form-input form-select sm">
+            <option value="">All Diets</option>
+            <option value="vegan">🌿 Vegan</option>
+            <option value="vegetarian">🥛 Vegetarian</option>
+            <option value="jain">🙏 Jain</option>
+            <option value="non_vegetarian">🍗 Non-Veg</option>
+          </select>
+          <select id="browseMeal" class="form-input form-select sm">
+            <option value="">All Meals</option>
+            <option value="breakfast">🌅 Breakfast</option>
+            <option value="lunch">☀️ Lunch</option>
+            <option value="dinner">🌙 Dinner</option>
+            <option value="snack">🫙 Snack</option>
+          </select>
+          <select id="browseCuisine" class="form-input form-select sm">
+            <option value="">All Cuisines</option>
+            <option value="Indian">🇮🇳 Indian</option>
+            <option value="South Indian">🌿 South Indian</option>
+            <option value="Continental">🌍 Continental</option>
+            <option value="Asian">🥢 Asian</option>
+          </select>
+          <button class="btn btn-primary sm" onclick="browseFilter()">Filter</button>
+        </div>
+
+        <div class="food-table-wrap">
+          <table class="food-table" id="foodTable">
+            <thead>
+              <tr>
+                <th>Food</th>
+                <th>Diet</th>
+                <th>Cuisine</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Carbs</th>
+                <th>Fats</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="foodTableBody">
+              <tr><td colspan="8" class="text-center">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 NutriGuide AI – BCA AI/ML Project</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
