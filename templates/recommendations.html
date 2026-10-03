@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recommendations – NutriGuide AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">NutriGuide <span class="logo-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/preferences" class="nav-link">Preferences</a></li>
+        <li><a href="/recommendations" class="nav-link active">Recommendations</a></li>
+        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">🎯 Your Recommendations</h1>
+      <p class="page-subtitle" id="recSubtitle">Loading your personalised food recommendations…</p>
+    </div>
+  </section>
+
+  <!-- LOADING SPINNER -->
+  <div id="loadingSpinner" class="loading-overlay">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <p>🤖 AI is analysing your preferences…</p>
+    </div>
+  </div>
+
+  <!-- NO PREFS WARNING -->
+  <div id="noPrefsWarning" class="container" style="display:none; padding:40px 0; text-align:center;">
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h2>No Preferences Found</h2>
+      <p>Please fill in your preferences first so we can recommend foods for you.</p>
+      <a href="/preferences" class="btn btn-primary btn-lg">Fill My Preferences</a>
+    </div>
+  </div>
+
+  <!-- RESULTS SECTION -->
+  <section class="section-pad" id="resultsSection" style="display:none;">
+    <div class="container">
+
+      <!-- User summary card -->
+      <div class="user-summary-card" id="userSummary"></div>
+
+      <!-- Tip card -->
+      <div class="tip-card" id="tipCard" style="display:none;">
+        <span class="tip-icon">💡</span>
+        <div>
+          <strong>Personalised Tip:</strong>
+          <span id="tipText"></span>
+        </div>
+      </div>
+
+      <!-- Filters row -->
+      <div class="results-toolbar">
+        <div class="results-count">
+          <span id="resultsCount">0</span> foods found
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Sort by:</label>
+          <select id="sortSelect" class="form-input form-select sm">
+            <option value="score">Best Match</option>
+            <option value="calories_asc">Lowest Calories</option>
+            <option value="calories_desc">Highest Calories</option>
+            <option value="protein">Highest Protein</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Filter:</label>
+          <select id="mealFilter" class="form-input form-select sm">
+            <option value="">All Meals</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Food cards grid -->
+      <div class="food-cards-grid" id="foodCardsGrid">
+        <!-- Cards injected by JavaScript -->
+      </div>
+
+      <!-- Retry button -->
+      <div class="text-center" style="margin-top:40px;">
+        <a href="/preferences" class="btn btn-outline">🔄 Change Preferences</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 NutriGuide AI – BCA AI/ML Project</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/recommendations.js') }}"></script>
+</body>
+</html>
