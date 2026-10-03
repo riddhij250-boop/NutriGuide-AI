@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Preferences – NutriGuide AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">NutriGuide <span class="logo-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/preferences" class="nav-link active">Preferences</a></li>
+        <li><a href="/recommendations" class="nav-link">Recommendations</a></li>
+        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">📋 Your Preferences</h1>
+      <p class="page-subtitle">Tell us about yourself so we can find the best foods for you</p>
+    </div>
+  </section>
+
+  <!-- PREFERENCES FORM -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="form-wrapper">
+
+        <!-- Progress bar -->
+        <div class="form-progress">
+          <div class="progress-step active" data-step="1">
+            <div class="progress-dot">1</div>
+            <span>Basic Info</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="2">
+            <div class="progress-dot">2</div>
+            <span>Diet & Goals</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="3">
+            <div class="progress-dot">3</div>
+            <span>Ingredients</span>
+          </div>
+        </div>
+
+        <form id="preferencesForm">
+
+          <!-- STEP 1: Basic Info -->
+          <div class="form-step active" id="step1">
+            <h2 class="form-step-title">Basic Information</h2>
+
+            <div class="form-group">
+              <label for="age" class="form-label">🎂 Your Age</label>
+              <input type="number" id="age" name="age" class="form-input"
+                     placeholder="e.g. 21" min="5" max="100" required />
+              <span class="form-hint">We use age to personalise nutritional advice.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">🥗 Dietary Preference</label>
+              <div class="choice-grid">
+                <label class="choice-card">
+                  <input type="radio" name="diet_type" value="vegan" required />
+                  <div class="choice-inner">
+                    <span class="choice-emoji">🌿</span>
+                    <span class="choice-name">Vegan</span>
+                    <span class="choice-desc">No animal products</span>
+                  </div>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="diet_type" value="vegetarian" />
+                  <div class="choice-inner">
+                    <span class="choice-emoji">🥛</span>
+                    <span class="choice-name">Vegetarian</span>
+                    <span class="choice-desc">Dairy & eggs OK</span>
+                  </div>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="diet_type" value="jain" />
+                  <div class="choice-inner">
+                    <span class="choice-emoji">🙏</span>
+                    <span class="choice-name">Jain</span>
+                    <span class="choice-desc">No root vegetables</span>
+                  </div>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="diet_type" value="non_vegetarian" />
+                  <div class="choice-inner">
+                    <span class="choice-emoji">🍗</span>
+                    <span class="choice-name">Non-Veg</span>
+                    <span class="choice-desc">All foods</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-nav">
+              <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                Next: Diet & Goals →
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Diet & Goals -->
+          <div class="form-step" id="step2">
+            <h2 class="form-step-title">Diet & Health Goals</h2>
+
+            <div class="form-group">
+              <label for="health_goal" class="form-label">🎯 Health Goal</label>
+              <select id="health_goal" name="health_goal" class="form-input form-select" required>
+                <option value="">-- Select your main goal --</option>
+                <option value="weight_loss">⬇️ Weight Loss</option>
+                <option value="muscle_gain">💪 Muscle Gain</option>
+                <option value="weight_management">⚖️ Weight Management</option>
+                <option value="heart_health">❤️ Heart Health</option>
+                <option value="diabetes_control">🩸 Diabetes Control</option>
+                <option value="digestive_health">🦠 Digestive Health</option>
+                <option value="energy_boost">⚡ Energy Boost</option>
+                <option value="detox">🌿 Detox / Cleanse</option>
+                <option value="bone_health">🦴 Bone Health</option>
+                <option value="brain_health">🧠 Brain Health</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="meal_type" class="form-label">🍽️ Meal Type</label>
+              <div class="meal-grid">
+                <label class="meal-card">
+                  <input type="radio" name="meal_type" value="breakfast" required />
+                  <span>🌅</span>
+                  <span>Breakfast</span>
+                </label>
+                <label class="meal-card">
+                  <input type="radio" name="meal_type" value="lunch" />
+                  <span>☀️</span>
+                  <span>Lunch</span>
+                </label>
+                <label class="meal-card">
+                  <input type="radio" name="meal_type" value="dinner" />
+                  <span>🌙</span>
+                  <span>Dinner</span>
+                </label>
+                <label class="meal-card">
+                  <input type="radio" name="meal_type" value="snack" />
+                  <span>🫙</span>
+                  <span>Snack</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cuisine" class="form-label">🌍 Preferred Cuisine</label>
+              <select id="cuisine" name="cuisine" class="form-input form-select">
+                <option value="any">Any Cuisine</option>
+                <option value="Indian">🇮🇳 Indian</option>
+                <option value="South Indian">🌿 South Indian</option>
+                <option value="Continental">🌍 Continental</option>
+                <option value="Asian">🥢 Asian</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">⚠️ Allergies (select all that apply)</label>
+              <div class="allergy-grid">
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="dairy" />
+                  <span>🥛 Dairy</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="gluten" />
+                  <span>🌾 Gluten</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="nuts" />
+                  <span>🥜 Nuts</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="eggs" />
+                  <span>🥚 Eggs</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="soy" />
+                  <span>🫘 Soy</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="fish" />
+                  <span>🐟 Fish</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="shellfish" />
+                  <span>🦐 Shellfish</span>
+                </label>
+                <label class="allergy-chip">
+                  <input type="checkbox" name="allergies" value="peanuts" />
+                  <span>🥜 Peanuts</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-nav">
+              <button type="button" class="btn btn-outline" onclick="prevStep(1)">← Back</button>
+              <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next: Ingredients →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Ingredients -->
+          <div class="form-step" id="step3">
+            <h2 class="form-step-title">Available Ingredients</h2>
+            <p class="step-desc">Tell us what ingredients you have at home. We'll match foods that use them.</p>
+
+            <div class="form-group">
+              <label for="available_ingredients" class="form-label">🧺 What ingredients do you have?</label>
+              <textarea id="available_ingredients" name="available_ingredients"
+                        class="form-input form-textarea"
+                        placeholder="Type ingredients separated by commas, e.g.: rice, tomato, onion, garlic, lemon"
+                        rows="4"></textarea>
+              <span class="form-hint">This is optional but helps us match foods you can actually make!</span>
+            </div>
+
+            <!-- Quick ingredient chips -->
+            <div class="quick-ingredients">
+              <p class="quick-label">Quick add common ingredients:</p>
+              <div class="quick-chips" id="quickChips">
+                <button type="button" class="quick-chip" onclick="addIngredient('rice')">🍚 Rice</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('lentils')">🫘 Lentils</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('tomato')">🍅 Tomato</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('onion')">🧅 Onion</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('garlic')">🧄 Garlic</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('chicken')">🍗 Chicken</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('paneer')">🧀 Paneer</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('eggs')">🥚 Eggs</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('spinach')">🥬 Spinach</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('oats')">🥣 Oats</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('banana')">🍌 Banana</button>
+                <button type="button" class="quick-chip" onclick="addIngredient('yogurt')">🥛 Yogurt</button>
+              </div>
+            </div>
+
+            <div class="form-nav">
+              <button type="button" class="btn btn-outline" onclick="prevStep(2)">← Back</button>
+              <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                🚀 Get My Recommendations
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 NutriGuide AI – BCA AI/ML Project</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/preferences.js') }}"></script>
+</body>
+</html>

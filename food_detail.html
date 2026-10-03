@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Details – NutriGuide AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">NutriGuide <span class="logo-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/preferences" class="nav-link">Preferences</a></li>
+        <li><a href="/recommendations" class="nav-link active">Recommendations</a></li>
+        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- LOADING -->
+  <div id="loadingSpinner" class="loading-overlay">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <p>Loading food details…</p>
+    </div>
+  </div>
+
+  <!-- FOOD DETAIL CONTENT -->
+  <div id="foodDetailContent" style="display:none;">
+
+    <!-- Hero banner for the food -->
+    <section class="food-hero" id="foodHero">
+      <div class="container">
+        <a href="/recommendations" class="back-link">← Back to Recommendations</a>
+        <div class="food-hero-content">
+          <div class="food-hero-emoji" id="foodEmoji">🍽️</div>
+          <div class="food-hero-info">
+            <div class="food-hero-badges" id="foodBadges"></div>
+            <h1 class="food-hero-title" id="foodName">Food Name</h1>
+            <p class="food-hero-benefits" id="foodBenefits">Benefits…</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="container">
+        <div class="food-detail-grid">
+
+          <!-- Left column -->
+          <div class="food-detail-left">
+
+            <!-- Nutrition card -->
+            <div class="detail-card">
+              <h2 class="detail-card-title">📊 Nutrition Facts</h2>
+              <div class="nutrition-grid">
+                <div class="nutrition-item calories">
+                  <div class="nutrition-value" id="detailCalories">--</div>
+                  <div class="nutrition-label">Calories (kcal)</div>
+                </div>
+                <div class="nutrition-item protein">
+                  <div class="nutrition-value" id="detailProtein">--</div>
+                  <div class="nutrition-label">Protein (g)</div>
+                </div>
+                <div class="nutrition-item carbs">
+                  <div class="nutrition-value" id="detailCarbs">--</div>
+                  <div class="nutrition-label">Carbs (g)</div>
+                </div>
+                <div class="nutrition-item fats">
+                  <div class="nutrition-value" id="detailFats">--</div>
+                  <div class="nutrition-label">Fats (g)</div>
+                </div>
+              </div>
+
+              <!-- Macro bars -->
+              <div class="macro-bars">
+                <div class="macro-bar-item">
+                  <span class="macro-bar-label">Protein</span>
+                  <div class="macro-bar-track">
+                    <div class="macro-bar-fill protein-bar" id="proteinBar" style="width:0%"></div>
+                  </div>
+                  <span class="macro-bar-pct" id="proteinPct">0%</span>
+                </div>
+                <div class="macro-bar-item">
+                  <span class="macro-bar-label">Carbs</span>
+                  <div class="macro-bar-track">
+                    <div class="macro-bar-fill carbs-bar" id="carbsBar" style="width:0%"></div>
+                  </div>
+                  <span class="macro-bar-pct" id="carbsPct">0%</span>
+                </div>
+                <div class="macro-bar-item">
+                  <span class="macro-bar-label">Fats</span>
+                  <div class="macro-bar-track">
+                    <div class="macro-bar-fill fats-bar" id="fatsBar" style="width:0%"></div>
+                  </div>
+                  <span class="macro-bar-pct" id="fatsPct">0%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ingredients card -->
+            <div class="detail-card">
+              <h2 class="detail-card-title">🧺 Ingredients</h2>
+              <div class="ingredients-list" id="ingredientsList"></div>
+            </div>
+
+          </div>
+
+          <!-- Right column -->
+          <div class="food-detail-right">
+
+            <!-- Food info card -->
+            <div class="detail-card">
+              <h2 class="detail-card-title">ℹ️ Food Info</h2>
+              <table class="info-table">
+                <tr><td>🍽️ Meal Type</td><td id="infoMealType">--</td></tr>
+                <tr><td>🌍 Cuisine</td><td id="infoCuisine">--</td></tr>
+                <tr><td>🥗 Diet Type</td><td id="infoDietType">--</td></tr>
+                <tr><td>📁 Category</td><td id="infoCategory">--</td></tr>
+              </table>
+            </div>
+
+            <!-- Allergens card -->
+            <div class="detail-card">
+              <h2 class="detail-card-title">⚠️ Allergen Information</h2>
+              <div id="allergenInfo"></div>
+            </div>
+
+            <!-- Health goals card -->
+            <div class="detail-card">
+              <h2 class="detail-card-title">🎯 Good For</h2>
+              <div id="healthGoalsList"></div>
+            </div>
+
+            <!-- Match score (shown only if accessed from recommendations) -->
+            <div class="detail-card" id="matchScoreCard" style="display:none;">
+              <h2 class="detail-card-title">🏆 Your Match Score</h2>
+              <div class="match-score-display">
+                <div class="match-score-circle" id="matchScoreCircle">
+                  <span id="matchScoreValue">--</span>
+                  <span class="match-score-max">/100</span>
+                </div>
+                <div class="match-score-label" id="matchScoreLabel">--</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Back button -->
+        <div class="text-center" style="margin-top:40px;">
+          <a href="/recommendations" class="btn btn-outline">← Back to Recommendations</a>
+          <a href="/preferences" class="btn btn-primary" style="margin-left:12px;">🔄 New Preferences</a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div id="errorState" class="container" style="display:none; padding:60px 0; text-align:center;">
+    <div class="empty-state">
+      <div class="empty-icon">😕</div>
+      <h2>Food Not Found</h2>
+      <p>We couldn't find this food item. It may have been removed.</p>
+      <a href="/recommendations" class="btn btn-primary">← Go Back</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2024 NutriGuide AI – BCA AI/ML Project</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    // Pass the food_id from Flask into JavaScript
+    const FOOD_ID = {{ food_id }};
+  </script>
+  <script src="{{ url_for('static', filename='js/food_detail.js') }}"></script>
+</body>
+</html>
